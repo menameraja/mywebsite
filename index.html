@@ -1,561 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Mostafa Rajaei — Offensive Security Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostafa Rajaei — Security Researcher</title>
 
-  <!-- شبیه استک فونت Caido (Inter + system) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      /* رنگ‌های الهام گرفته از فضای Caido (دارک + آبی/فیروزه‌ای امنیتی) */
-      --bg: #020617;
-      --bg-elevated: #02081b;
-      --bg-soft: #0b1120;
-      --border-subtle: #1e293b;
-      --primary: #38bdf8;
-      --primary-soft: rgba(56, 189, 248, 0.16);
-      --primary-strong: #0ea5e9;
-      --text: #e5e7eb;
-      --text-soft: #9ca3af;
-      --tag-bg: rgba(15, 23, 42, 0.9);
-      --tag-border: rgba(148, 163, 184, 0.35);
-      --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.9);
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --transition-fast: 160ms ease-out;
-    }
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0f;
+            color: #d7d7e0;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.8;
+        }
 
-    * {
-      box-sizing: border-box;
-    }
+        h1, h2 {
+            font-family: 'Share Tech Mono', monospace;
+            color: #4cc9f0;
+            text-shadow: 0 0 8px #4cc9f0;
+        }
 
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      background: radial-gradient(circle at top, #02081b 0, #020617 45%, #000 100%);
-      color: var(--text);
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-        sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 40px 20px;
+        }
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px 16px;
-    }
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
 
-    .shell {
-      width: 100%;
-      max-width: 960px;
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.96));
-      border-radius: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      box-shadow: var(--shadow-soft);
-      padding: 22px 22px 26px;
-      position: relative;
-      overflow: hidden;
-    }
+        .profile-pic {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4cc9f0;
+            box-shadow: 0 0 15px #4cc9f0;
+            margin-bottom: 15px;
+        }
 
-    /* نوار بالا شبیه یک اپ دسکتاپ / Caido panel */
-    .shell::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 60%),
-        radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.12), transparent 70%);
-      opacity: 0.8;
-      pointer-events: none;
-    }
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(4px);
+        }
 
-    .shell-inner {
-      position: relative;
-      z-index: 1;
-    }
+        .skills span, .tags span {
+            display: inline-block;
+            margin: 6px;
+            padding: 6px 12px;
+            font-size: 14px;
+            background: #11151c;
+            border: 1px solid #4cc9f0;
+            border-radius: 6px;
+            font-family: "Share Tech Mono", monospace;
+        }
 
-    .window-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
+        ul li {
+            margin-bottom: 10px;
+        }
 
-    .window-dots {
-      display: flex;
-      gap: 6px;
-    }
+        .contact a {
+            color: #4cc9f0;
+            text-decoration: none;
+            font-family: "Share Tech Mono", monospace;
+        }
 
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: #f97373;
-    }
+        .footer {
+            text-align: center;
+            color: #666;
+            margin-top: 40px;
+            font-size: 14px;
+            font-family: "Share Tech Mono", monospace;
+        }
 
-    .dot:nth-child(2) {
-      background: #facc15;
-    }
-
-    .dot:nth-child(3) {
-      background: #4ade80;
-    }
-
-    .window-title {
-      margin-left: 10px;
-      font-size: 12px;
-      color: var(--text-soft);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 2.2fr) minmax(0, 2.4fr);
-      gap: 32px;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        padding: 20px 12px;
-      }
-
-      .shell {
-        padding: 18px 16px 22px;
-      }
-
-      .layout {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 20px;
-      }
-
-      .window-title {
-        display: none;
-      }
-    }
-
-    .left,
-    .right {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .headline {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .avatar {
-      width: 60px;
-      height: 60px;
-      border-radius: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: radial-gradient(circle at 30% 0, #38bdf8, #0f172a);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 24px;
-      color: #e0f2fe;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
-      flex-shrink: 0;
-    }
-
-    .title-block h1 {
-      margin: 0;
-      font-size: 26px;
-      letter-spacing: 0.03em;
-    }
-
-    .title-block h1 span {
-      color: var(--primary-strong);
-    }
-
-    .subtitle {
-      margin-top: 4px;
-      font-size: 13px;
-      color: var(--text-soft);
-    }
-
-    .subtitle span {
-      color: var(--primary);
-    }
-
-    .badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .badge {
-      padding: 4px 9px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border-subtle);
-      background: rgba(15, 23, 42, 0.8);
-      font-size: 11px;
-      color: var(--text-soft);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--primary);
-      box-shadow: 0 0 14px rgba(56, 189, 248, 0.8);
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border-radius: var(--radius-pill);
-      border: 1px solid transparent;
-      font-size: 13px;
-      font-weight: 500;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background var(--transition-fast), transform var(--transition-fast),
-        border-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
-      color: #020617;
-      box-shadow: 0 16px 32px rgba(8, 47, 73, 0.7);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 20px 40px rgba(8, 47, 73, 0.9);
-    }
-
-    .btn-ghost {
-      background: rgba(15, 23, 42, 0.85);
-      color: var(--text-soft);
-      border-color: rgba(148, 163, 184, 0.4);
-    }
-
-    .btn-ghost:hover {
-      background: rgba(15, 23, 42, 1);
-      border-color: var(--primary);
-      color: var(--primary);
-      transform: translateY(-1px);
-    }
-
-    .btn-icon {
-      font-size: 14px;
-      opacity: 0.8;
-    }
-
-    .section {
-      border-radius: var(--radius-lg);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.96));
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      padding: 14px 14px 16px;
-    }
-
-    .section + .section {
-      margin-top: 4px;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      gap: 8px;
-    }
-
-    .section-title {
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-soft);
-    }
-
-    .section-pill {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: var(--radius-pill);
-      background: var(--primary-soft);
-      color: #e0f2fe;
-      border: 1px solid rgba(56, 189, 248, 0.45);
-    }
-
-    .section-body {
-      font-size: 13px;
-      color: #cbd5f5;
-      line-height: 1.7;
-    }
-
-    .fields {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .tag {
-      padding: 4px 10px;
-      border-radius: var(--radius-pill);
-      background: var(--tag-bg);
-      border: 1px solid var(--tag-border);
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    /* لیست‌ها سمت راست */
-    .list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 4px;
-      font-size: 13px;
-    }
-
-    .list li {
-      display: flex;
-      gap: 8px;
-      color: #cbd5f5;
-    }
-
-    .list li::before {
-      content: '▹';
-      color: var(--primary);
-      font-size: 11px;
-      margin-top: 2px;
-    }
-
-    .meta {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-top: 6px;
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .meta span {
-      opacity: 0.9;
-    }
-
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 16px;
-      padding-top: 10px;
-      border-top: 1px dashed rgba(148, 163, 184, 0.35);
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .footer span strong {
-      color: var(--primary);
-    }
-
-    .footer .mono {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-        'Courier New', monospace;
-      font-size: 10px;
-      background: rgba(15, 23, 42, 0.85);
-      padding: 3px 7px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.3);
-    }
-  </style>
+        .title-sub {
+            font-size: 17px;
+            color: #9be0ff;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px #4cc9f0;
+        }
+    </style>
 </head>
+
 <body>
-  <main class="shell">
-    <div class="shell-inner">
-      <div class="window-bar">
-        <div class="window-dots">
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-        </div>
-        <div class="window-title">mostafa.rajaei — web security · portfolio</div>
-      </div>
+<div class="container">
 
-      <div class="layout">
-        <!-- سمت چپ: هدر و بایو -->
-        <section class="left">
-          <header class="headline">
-            <div class="avatar">MR</div>
-            <div class="title-block">
-              <h1>Mostafa <span>Rajaei</span></h1>
-              <div class="subtitle">
-                Web Application Security Researcher — <span>Penetration Tester · Bug Hunter</span>
-              </div>
-
-              <div class="badges">
-                <div class="badge">
-                  <span class="badge-dot"></span>
-                  Offensive Security · Red Team
-                </div>
-                <div class="badge">Web &amp; Mobile Exploitation</div>
-              </div>
-
-              <div class="actions">
-                <a
-                  class="btn btn-primary"
-                  href="https://www.linkedin.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <span class="btn-icon">in</span>
-                  LinkedIn
-                </a>
-
-                <a class="btn btn-ghost" href="mailto:me.namehunter@gmail.com">
-                  <span class="btn-icon">✉</span>
-                  Email
-                </a>
-              </div>
-            </div>
-          </header>
-
-          <section class="section">
-            <div class="section-header">
-              <div class="section-title">Bio</div>
-              <span class="section-pill">Offensive Security · Web &amp; Mobile</span>
-            </div>
-            <div class="section-body">
-              Web application security researcher, penetration tester, instructor, exploiter, and bug
-              hunter. Specialized in offensive security, red teaming, and exploitation of modern web
-              and mobile applications.
-            </div>
-          </section>
-
-          <section class="section">
-            <div class="section-header">
-              <div class="section-title">Fields of Expertise</div>
-            </div>
-            <div class="fields">
-              <span class="tag">Web Application Penetration Testing</span>
-              <span class="tag">Mobile Application Penetration Testing</span>
-              <span class="tag">Bug Hunting</span>
-              <span class="tag">Red Teaming</span>
-            </div>
-          </section>
-
-          <section class="section">
-            <div class="section-header">
-              <div class="section-title">Contact</div>
-            </div>
-            <div class="section-body">
-              <div class="meta">
-                <span>Email: <strong>me.namehunter@gmail.com</strong></span>
-                <span>Location: Offensive Security / Remote</span>
-              </div>
-            </div>
-          </section>
-        </section>
-
-        <!-- سمت راست: تجربه، مدارک، مهارت‌ها -->
-        <section class="right">
-          <section class="section">
-            <div class="section-header">
-              <div class="section-title">Teaching Experience</div>
-            </div>
-            <ul class="list">
-              <li>CEH v9 / CEH v10 Instructor</li>
-              <li>SANS SEC542 &amp; SEC642</li>
-              <li>OWASP Web Application Standards</li>
-              <li>Red Team Training</li>
-            </ul>
-          </section>
-
-          <section class="section">
-            <div class="section-header">
-              <div class="section-title">Certificates</div>
-            </div>
-            <div class="fields">
-              <span class="tag">Linux</span>
-              <span class="tag">CEH</span>
-              <span class="tag">Python</span>
-              <span class="tag">SANS542</span>
-              <span class="tag">SANS642</span>
-              <span class="tag">Fortinet Firewall</span>
-              <span class="tag">Red Team (Ravin)</span>
-            </div>
-          </section>
-
-          <section class="section">
-            <div class="section-header">
-              <div class="section-title">Work Experience</div>
-            </div>
-            <ul class="list">
-              <li>2012 — HPC — Dargahe Danesh</li>
-              <li>2015 — Web Security Researcher — Pardazesh Kharazm</li>
-              <li>2017 — Web Security Researcher — Neghar Afagh</li>
-              <li>Other: Web &amp; Mobile Penetration Testing</li>
-              <li>Bug Hunting: HackerOne, Ravro, Bugdasht, etc.</li>
-            </ul>
-          </section>
-
-          <section class="section">
-            <div class="section-header">
-              <div class="section-title">Technical Skills</div>
-            </div>
-            <div class="fields">
-              <span class="tag">Linux</span>
-              <span class="tag">Debian</span>
-              <span class="tag">Bash</span>
-              <span class="tag">Web App Security</span>
-              <span class="tag">JavaScript</span>
-              <span class="tag">PHP</span>
-              <span class="tag">Python</span>
-              <span class="tag">Exploitation</span>
-            </div>
-          </section>
-
-          <section class="section">
-            <div class="section-header">
-              <div class="section-title">Learning &amp; Research</div>
-            </div>
-            <ul class="list">
-              <li>Web Application Security</li>
-              <li>WAF Bypass &amp; Attack Methods</li>
-              <li>Open Source Tooling</li>
-              <li>Golang, JavaScript, PHP</li>
-            </ul>
-          </section>
-        </section>
-      </div>
-
-      <footer class="footer">
-        <span>© 2025 — <strong>Mostafa Rajaei</strong> — Offensive Security Portfolio</span>
-        <span class="mono">profile.md ▸ rendered in caido-inspired theme</span>
-      </footer>
+    <!-- HEADER -->
+    <div class="header">
+        <img src="profile.jpeg" class="profile-pic" alt="profile">
+        <h1>Mostafa Rajaei</h1>
+        <div class="title-sub">Web Application Security Researcher — Penetration Tester — Bug Hunter</div>
     </div>
-  </main>
+    <div style="margin-top: 10px;">
+
+    <a href="https://www.linkedin.com/in/mostafa-rajaei" 
+       target="_blank" 
+       style="color:#4cc9f0; text-decoration:none; margin-right:25px;">
+       LinkedIn
+    </a>
+
+    <a href="mailto:me.namehunter@gmail.com" 
+       style="color:#4cc9f0; text-decoration:none;">
+       Email
+    </a>
+
+</div>
+    <!-- BIO -->
+    <div class="section">
+        <h2>Bio</h2>
+        <p>
+            Web application security researcher, penetration tester, instructor, exploiter, and bug hunter.
+            Specialized in offensive security, red teamer, and exploitation of modern web and mobile applications.
+        </p>
+    </div>
+
+    <!-- FIELDS -->
+    <div class="section">
+        <h2>Fields of Expertise</h2>
+        <p>Web & Mobile Application Penetration Testing — Bug Hunting - Redteame</p>
+    </div>
+
+    <!-- TEACHING -->
+    <div class="section">
+        <h2>Teaching Experience</h2>
+        <ul>
+            <li>CEH v9 / CEH v10 Instructor</li>
+            <li>SANS SEC542 & SEC642</li>
+            <li>OWASP Web Application Standards</li>
+            <li>Red Team</li>
+        </ul>
+    </div>
+
+    <!-- CERTIFICATES -->
+    <div class="section">
+        <h2>Certificates</h2>
+        <p>Linux — CEH — Python — SANS542 — SANS642 — Fortinet Firewall — And Redteam ravin</p>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="section">
+        <h2>Work Experience</h2>
+        <ul>
+            <li>2012 — HPC — Dargahe Danesh</li>
+            <li>2015 — Web Security Researcher — Pardazesh Kharazm</li>
+            <li>2017 — Web Security Researcher — Neghar Afagh</li>
+            <li>Other: Web & Mobile Penetration Testing</li>
+            <li>Bug Hunting: HackerOne, Ravro, Bugdasht, etc.</li>
+        </ul>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="section">
+        <h2>Technical Skills</h2>
+        <div class="skills">
+            <span>Linux</span>
+            <span>Debian</span>
+            <span>Bash</span>
+            <span>Web App Security</span>
+            <span>JavaScript</span>
+            <span>PHP</span>
+            <span>Python</span>
+            <span>Exploitation</span>
+        </div>
+    </div>
+
+    <!-- LEARNING -->
+    <div class="section">
+        <h2>Learning & Research</h2>
+        <p>Web Application Security — WAF Bypass — Attack Methods — Open Source Tooling</p>
+        <div class="tags">
+            <span>Go Lang</span>
+            <span>JavaScript</span>
+            <span>PHP</span>
+        </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="section contact">
+        <h2>Contact</h2>
+        <p>📧 <a href="mailto:me.namehunter@gmail.com">me.namehunter@gmail.com</a></p>
+    </div>
+
+    <div class="footer">
+        © 2025 — Mostafa Rajaei — Offensive Security Portfolio
+    </div>
+
+</div>
 </body>
 </html>
